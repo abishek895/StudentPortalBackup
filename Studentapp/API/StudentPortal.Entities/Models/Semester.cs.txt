@@ -1,0 +1,13 @@
+using System;
+using System.Collections.Generic;
+
+namespace StudentPortal.Entities.Models;
+
+public partial class Semester
+{
+    public int Semid { get; set; }
+
+    public string Semname { get; set; } = null!;
+
+    public virtual ICollection<StudentMark> StudentMarks { get; set; } = new List<StudentMark>();
+}

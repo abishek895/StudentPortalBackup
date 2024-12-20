@@ -1,0 +1,68 @@
+using StudentPortal.Entities.DTO;
+using StudentPortal.Entities.Models;
+using StudentPortal.Services.IServices;
+using Microsoft.EntityFrameworkCore;
+
+namespace StudentPortal.Services.Services
+{
+    public class SemesterService : ISemesterService
+    {
+        private readonly StudentdbContext _context;
+
+        public SemesterService(StudentdbContext context)
+        {
+            _context = context;
+        }
+
+        public async Task<List<SemesterDto>> GetAllSemestersAsync()
+        {
+            return await _context.Semesters
+                .Select(s => new SemesterDto
+                {
+                    Semid = s.Semid,
+                    Semname = s.Semname
+                })
+                .ToListAsync();
+        }
+
+        public async Task<SemesterDto> GetSemesterByIdAsync(int id)
+        {
+            var semester = await _context.Semesters.FindAsync(id);
+            if (semester == null) return null;
+
+            return new SemesterDto
+            {
+                Semid = semester.Semid,
+                Semname = semester.Semname
+            };
+        }
+
+        public async Task AddSemesterAsync(SemesterDto semesterDto)
+        {
+            var semester = new Semester
+            {
+                Semname = semesterDto.Semname
+            };
+            _context.Semesters.Add(semester);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task UpdateSemesterAsync(int id, SemesterDto semesterDto)
+        {
+            var semester = await _context.Semesters.FindAsync(id);
+            if (semester == null) throw new KeyNotFoundException("Semester not found.");
+
+            semester.Semname = semesterDto.Semname;
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task DeleteSemesterAsync(int id)
+        {
+            var semester = await _context.Semesters.FindAsync(id);
+            if (semester == null) throw new KeyNotFoundException("Semester not found.");
+
+            _context.Semesters.Remove(semester);
+            await _context.SaveChangesAsync();
+        }
+    }
+}

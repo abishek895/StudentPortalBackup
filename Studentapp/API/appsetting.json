@@ -1,0 +1,10 @@
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "ConnectionStrings": { "DefaultConnection": "Server=ZOR;Database=studentdb;TrustServerCertificate=True;Integrated Security=True" },
+  "AllowedHosts": "*"
+}

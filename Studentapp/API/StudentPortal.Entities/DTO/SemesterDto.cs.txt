@@ -1,0 +1,8 @@
+namespace StudentPortal.Entities.DTO
+{
+    public class SemesterDto
+    {
+        public int Semid { get; set; }   // ID of the semester
+        public string Semname { get; set; } = string.Empty; // Name of the semester
+    }
+}

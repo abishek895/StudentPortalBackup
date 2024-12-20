@@ -1,0 +1,1 @@
+Scaffold-DbContext "Server=ZOR;Database=studentdb;TrustServerCertificate=True;Integrated Security=True" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -Force

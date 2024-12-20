@@ -1,0 +1,23 @@
+using System;
+using System.Collections.Generic;
+
+namespace StudentPortal.Entities.Models;
+
+public partial class LeaveRequest
+{
+    public int Id { get; set; }
+
+    public int Studentid { get; set; }
+
+    public DateOnly From { get; set; }
+
+    public string Reason { get; set; } = null!;
+
+    public string? Status { get; set; }
+
+    public DateTime? Createdat { get; set; }
+
+    public DateOnly? Till { get; set; }
+
+    public virtual Student Student { get; set; } = null!;
+}

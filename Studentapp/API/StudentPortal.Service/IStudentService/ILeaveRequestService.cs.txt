@@ -1,0 +1,13 @@
+using StudentPortal.Entities.DTO;
+
+public interface ILeaveRequestService
+{
+    Task<IEnumerable<LeaveRequestDto>> GetLeaveRequestsAsync();
+    Task<LeaveRequestDto> GetLeaveRequestAsync(int id);
+
+    //Task<IEnumerable<LeaveRequestDto>> GetLeaveRequestAsync(int id);
+    Task AddLeaveRequestAsync(LeaveRequestDto leaveRequestDto);
+    Task UpdateLeaveRequestStatusAsync(int id, string status); // Ensure this is present
+    Task<int> GetPendingLeaveRequestCountAsync();
+    Task<IEnumerable<LeaveRequestDto>> GetLeaveRequestsByStudentIdAsync(int studentId);
+}

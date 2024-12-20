@@ -1,0 +1,90 @@
+/* src/App.css */
+
+html, body {
+  height: 100%; /* Ensure full height */
+  margin: 0; /* Remove default margin */
+  background: white; /* Full page gradient background */
+  color: black; /* Set text color for body text */
+  font-family: 'Arial', sans-serif; /* Font family */
+  overflow: auto;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensure the app takes full height */
+}
+
+main {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 120px); /* Adjust height */
+  overflow: auto;
+}
+
+/* Sidebar styles */
+.sidebar {
+  height: 100vh;
+  width: 220px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #333; /* Light theme sidebar */
+  padding-top: 20px;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar li {
+  text-align: center;
+}
+
+.sidebar a {
+  display: block;
+  padding: 15px;
+  color: white;
+  text-decoration: none;
+}
+
+.sidebar a:hover {
+  background-color: #575757; /* Hover effect */
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  margin: 10px 0;
+}
+
+h2 {
+  color: #3f51b5; /* Primary color */
+}
+
+/* Dark Theme Styles (If needed) */
+body.dark-theme {
+  background-color: #1f1f1f; /* Dark background */
+  color: white; /* Text color for dark theme */
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 12px; /* Width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1); /* Background of the scrollbar track */
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(63, 135, 166, 0.8); /* Color of the scrollbar thumb */
+  border-radius: 6px; /* Round the corners of the scrollbar */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(63, 135, 166, 1); /* Darker color when hovered */
+}

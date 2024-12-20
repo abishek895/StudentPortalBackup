@@ -1,0 +1,11 @@
+using StudentPortal.Entities.Models;
+
+public interface IRoleService
+{
+    Task<IEnumerable<Role>> GetRolesAsync();
+    Task<Role> GetRoleAsync(int id);
+    Task AddRoleAsync(Role role);
+    Task UpdateRoleAsync(Role role);
+    Task DeleteRoleAsync(int id);
+    Task<bool> RoleExistsAsync(int id);
+}

@@ -1,0 +1,13 @@
+using System;
+using System.Collections.Generic;
+
+namespace StudentPortal.Entities.Models;
+
+public partial class Role
+{
+    public int Roleid { get; set; }
+
+    public string Rolename { get; set; } = null!;
+
+    public virtual ICollection<Student> Students { get; set; } = new List<Student>();
+}

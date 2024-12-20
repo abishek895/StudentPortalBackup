@@ -1,0 +1,15 @@
+using StudentPortal.Entities.DTO;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace StudentPortal.Services
+{
+    public interface ISemesterService
+    {
+        Task<List<SemesterDto>> GetAllSemestersAsync();
+        Task<SemesterDto> GetSemesterByIdAsync(int id);
+        Task AddSemesterAsync(SemesterDto semesterDto);
+        Task UpdateSemesterAsync(int id, SemesterDto semesterDto);
+        Task DeleteSemesterAsync(int id);
+    }
+}

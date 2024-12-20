@@ -1,0 +1,123 @@
+using Microsoft.EntityFrameworkCore;
+using StudentPortal.Entities.DTO;
+using StudentPortal.Entities.Models;
+using StudentPortal.Services.IServices;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace StudentPortal.Services.Services
+{
+    public class LeaveRequestService : ILeaveRequestService
+    {
+        private readonly StudentdbContext _context;
+
+        public LeaveRequestService(StudentdbContext context)
+        {
+            _context = context;
+        }
+
+        // HTTP GET
+      
+        public async Task<IEnumerable<LeaveRequestDto>> GetLeaveRequestsAsync()
+        {
+            return await _context.LeaveRequests
+                .Include(l => l.Student) // Include Student entity to access its properties
+                .Select(l => new LeaveRequestDto
+                {
+                    Id = l.Id,                  // Get Id from LeaveRequests table
+                    Studentid = l.Studentid,    // Get Studentid from LeaveRequests table
+                    From = l.From,              // Get From date from LeaveRequests table
+                    Till = l.Till,              // Get Till date from LeaveRequests table
+                    Reason = l.Reason,          // Get Reason from LeaveRequests table
+                    Status = l.Status,          // Get Status from LeaveRequests table
+                    Firstname = l.Student.Firstname // Include FirstName from the Student table
+                })
+                .ToListAsync();
+        }
+
+       
+
+        //HTTP GET()
+        public async Task<LeaveRequestDto> GetLeaveRequestAsync(int id)
+        {
+            var leaveRequest = await _context.LeaveRequests.FindAsync(id);
+            if (leaveRequest == null) return null;
+
+            return new LeaveRequestDto
+            {
+                //Id = leaveRequest.Id,
+                //Studentid = leaveRequest.Studentid, 
+                From = leaveRequest.From,
+                Till = leaveRequest.Till,
+                Reason = leaveRequest.Reason,
+                Status = leaveRequest.Status
+            };
+        }
+        //HTTP POST
+        public async Task AddLeaveRequestAsync(LeaveRequestDto leaveRequestDto)
+        {
+            var leaveRequest = new LeaveRequest
+            {
+                Studentid = leaveRequestDto.Studentid, // Use Studentid
+                From = leaveRequestDto.From,
+                Reason = leaveRequestDto.Reason,
+                Status = "Pending",
+                Createdat = DateTime.Now,
+                Till = leaveRequestDto.From
+            };
+
+            _context.LeaveRequests.Add(leaveRequest);
+            await _context.SaveChangesAsync();
+        }
+        //HTTP PUT
+        public async Task UpdateLeaveRequestStatusAsync(int id, string status)
+        {
+            var leaveRequest = await _context.LeaveRequests.FindAsync(id);
+            if (leaveRequest != null)
+            {
+                leaveRequest.Status = status;
+                await _context.SaveChangesAsync();
+            }
+        }
+
+        public async Task<IEnumerable<LeaveRequestDto>> GetLeaveRequestsByStudentIdAsync(int studentId)
+        {
+            return await _context.LeaveRequests
+                .Where(l => l.Studentid == studentId) // Make sure this matches your model
+                .Select(l => new LeaveRequestDto
+                {
+                    Id = l.Id,
+                    Studentid = l.Studentid, // Ensure property names are correct
+                    From = l.From,
+                    Till = l.Till,
+                    Reason = l.Reason,
+                    Status = l.Status
+                })
+                .ToListAsync();
+        }
+
+        //HTTP GET BY PENDING COUNT
+        public async Task<int> GetPendingLeaveRequestCountAsync()
+        {
+            return await _context.LeaveRequests
+                .CountAsync(l => l.Status == "Pending");
+        }
+
+        //dummy GET
+        public async Task<List<LeaveRequestDto>> GetLeaveRequestStatusAsync(int studentId)
+        {
+            // Fetch leave requests for the given studentId
+            var leaveRequests = await _context.LeaveRequests
+                .Where(lr => lr.Studentid == studentId) // Filter by student ID
+                .Select(lr => new LeaveRequestDto
+                {
+                    From = lr.From,
+                    Till = lr.Till,
+                    Status = lr.Status
+                })
+                .ToListAsync();
+
+            return leaveRequests;
+        }
+    }
+}

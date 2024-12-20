@@ -1,0 +1,109 @@
+/* src/Components/Navbar.css */
+
+/* Sidebar styles */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 250px; /* Fixed width */
+  background: linear-gradient(135deg, rgba(63, 135, 166, 0.8), rgba(0, 0, 0, 0.7));
+  overflow-y: auto; /* Enable scrolling for sidebar */
+}
+
+.sidebar.collapsed {
+  width: 60px; /* Width when collapsed to fit icons */
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 50px 0 0 0;
+  display: flex; /* Flex display for horizontal alignment */
+  flex-direction: column;
+}
+
+.sidebar ul li {
+  padding: 10px 0; /* Reduced padding for icon buttons */
+}
+
+.sidebar ul li button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px; /* Increased font size for icons */
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* Align text and icon to the start */
+  cursor: pointer;
+  transition: color 0.3s ease;
+  width: 100%; /* Full width to cover clickable area */
+}
+
+.sidebar ul li button i {
+  font-size: 20px;
+  margin-right: 12px; /* Add space between icon and text */
+}
+
+.sidebar ul li button:hover {
+  color: #ffeb3b;
+}
+
+/* Logout Button styles */
+.logout-button {
+  padding: 25px 0; /* Use consistent padding */
+  margin-top: 20px; /* Adjust this value to lift the button */
+}
+
+.logout-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px; /* Increased font size for logout icon */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* Align text and icon to the start */
+  width: 100%; /* Ensure full width for consistency */
+}
+
+.logout-btn i {
+  font-size: 20px; /* Keep consistent font size for icons */
+  margin-right: 12px; /* Add space between icon and text */
+}
+
+.logout-btn:hover {
+  color: #ffeb3b;
+}
+
+/* Main content styles */
+.main-content {
+  display: flex; /* Use flexbox */
+  justify-content: flex-start; /* Default to left-aligned */
+  transition: margin-left 0.3s, width 0.3s; /* Smooth transition */
+  margin-left: 250px; /* Margin when sidebar is expanded */
+  width: calc(100% - 250px); /* Full width minus the sidebar */
+}
+
+/* Full width for main content when sidebar is not present */
+.full-width {
+  margin-left: 0; /* Remove left margin */
+  width: 100%; /* Full width */
+  justify-content: center; /* Center the content */
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 200px; /* Adjust for smaller screens */
+  }
+  .sidebar.collapsed + .main-content {
+    margin-left: 60px; /* Adjust for collapsed width */
+  }
+}
+
+@media (max-width: 576px) {
+  .main-content {
+    margin-left: 150px; /* Further adjust for very small screens */
+  }
+}
